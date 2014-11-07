@@ -1,0 +1,15 @@
+name    'puppet-elk'
+version '0.1.1'
+source 'UNKNOWN'
+author 'Cybercom'
+license 'UNKNOWN'
+summary 'UNKNOWN'
+description 'UNKNOWN'
+project_page 'UNKNOWN'
+
+## Add dependencies, if any:
+# dependency 'username/name', '>= 1.2.0'
+dependency 'elasticsearch/elasticsearch'
+dependency 'elasticsearch/logstash'
+dependency 'puppetlabs/apache'
+dependency 'puppetlabs/apt'
