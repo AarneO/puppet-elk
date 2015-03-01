@@ -18,7 +18,7 @@ class elk::install {
   }
 
   apt::source { "elasticsearch":
-    location => "http://packages.elasticsearch.org/elasticsearch/1.3/debian",
+    location => "http://packages.elasticsearch.org/elasticsearch/1.4/debian",
     release => "stable",
     repos => "main",
     include_src => false,
@@ -83,10 +83,10 @@ class elk::install {
 
   exec { "curl-kibana":
     cwd => "/home/kibana",
-    command => "/usr/bin/curl -s -o /home/kibana/kibana-latest.zip https://download.elasticsearch.org/kibana/kibana/kibana-latest.zip",
-    creates => "/home/kibana/kibana-latest.zip",
+    command => "/usr/bin/curl -s -o /home/kibana/kibana-latest.tar.gz https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-linux-x64.tar.gz",
+    creates => "/home/kibana/kibana-latest.tar,gz",
     require => [ User["kibana"], File["/home/kibana"], Package['curl'] ],
-    notify => Exec["unzip kibana"],
+    notify => Exec["extract kibana"],
   }   
 
   file { "/home/kibana/kibana-latest":
@@ -104,11 +104,11 @@ class elk::install {
     }
   }
 
-   exec { "unzip kibana" :
-    cwd => "/home/kibana",
-    command => "/usr/bin/unzip -o kibana-latest.zip",
+   exec { "extract kibana" :
+    cwd => "/home/kibana/kibana-latest",
+    command => "tar -zxf /home/kibana/kibana-latest.tar.gz --strip-components 1",
     refreshonly => true,
-    require => [ Package["unzip"], File[ "/home/kibana/kibana-latest" ] ],
+    require => File[ "/home/kibana/kibana-latest" ],
   }
 
 # nginx/apache
