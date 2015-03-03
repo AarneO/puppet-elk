@@ -111,21 +111,6 @@ class elk::install {
     require => File[ "/home/kibana/kibana-latest" ],
   }
 
-# nginx/apache
-  if ! defined(Class["apache"]) {
-
-	  class { 'apache':
-			mpm_module => 'prefork',
-			default_vhost => false,
-		}
-  }
-
-  apache::vhost { $clientcert:
-    port => 80,
-    vhost_name => '*',
-    docroot => "/home/kibana/kibana-latest",
- }
-
 # logstash
   apt::source { "logstash":
     location => "http://packages.elasticsearch.org/logstash/1.4/debian",
