@@ -24,16 +24,4 @@ class elk::config {
     notify => Service["logstash"],
   }
 
-  exec { "chmod apache logdir":
-	cwd => "/var/log",
-	command => "/bin/chmod 0644 -R /var/log/apache2",
-	refreshonly => true,
-	require => Class["apache"],
-  } 
-
-  file { "/etc/logstash/conf.d/30-apache.conf":
-    ensure => present,
-    source => "puppet:///modules/elk/logstash/30-apache.conf",
-    notify => [ Service["logstash"], Exec[ "chmod apache logdir" ] ],
-  }
 }

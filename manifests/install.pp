@@ -106,7 +106,7 @@ class elk::install {
 
    exec { "extract kibana" :
     cwd => "/home/kibana/kibana-latest",
-    command => "tar -zxf /home/kibana/kibana-latest.tar.gz --strip-components 1",
+    command => "/bin/tar -zxf /home/kibana/kibana-latest.tar.gz --strip-components 1",
     refreshonly => true,
     require => File[ "/home/kibana/kibana-latest" ],
   }

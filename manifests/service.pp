@@ -10,4 +10,11 @@ class elk::service {
     ensure => running,
     enable => true,
   }
+
+  exec { 'kibana':
+    require	=> Service['elasticsearch'],
+    user	=> kibana,
+    cwd		=> "/home/kibana/kibana-latest/bin",
+    command	=> "./kibana &",
+
 }
